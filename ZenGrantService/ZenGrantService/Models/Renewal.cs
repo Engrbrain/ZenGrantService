@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+
+namespace ZenGrantService.Models
+{
+    public enum PaymentMethod
+    {
+        PhysicalInvoice,
+        OnlinePayment,
+        BankTransfer
+    }
+
+    public class Renewal
+    {
+        
+        public int ID { get; set; }
+        
+        public int OrganizationID { get; set; }
+
+        public virtual Organization Organization { get; set; }
+
+        public int SubscriptionID { get; set; }
+
+        public virtual Subscription Subscription { get; set; }
+
+        public string InvoiceNumber { get; set; }
+
+        public string PaymentReference { get; set; }
+        public int Status { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+        public string Narration { get; set; }
+
+        public DateTime PostingDate { get; set; }
+        
+        public DateTime ExpiryDate { get; set; }
+        public double RenewalAmount { get; set; }
+        public bool isActive { get; set; }
+        public DateTime TimeStamp { get; set; }
+
+        [Key]
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
+
+        public Renewal()
+        {
+            TimeStamp = DateTime.Now;
+        }
+    }
+}
