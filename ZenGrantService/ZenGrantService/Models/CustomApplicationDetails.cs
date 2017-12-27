@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
 namespace ZenGrantService.Models
 {
-   
-    public class ProposalTemplate
+    public class CustomApplicationDetails
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public string FieldLabel { get; set; }
-        public enumManager.FieldType FieldType { get; set; }
-        public string FieldValue { get; set; }
+        public int ProposalTemplateID { get; set; }
+        public virtual ProposalTemplate ProposalTemplate { get; set; }
+        public string FieldUserInput { get; set; }
+        public int ProgApplicationID { get; set; }
+        public virtual ProgApplication ProgApplication { get; set; }
+
+        public int ProgrammeID { get; set; }
+        public virtual Programme Programme { get; set; }
         public int OrganizationID { get; set; }
         public virtual Organization Organization { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool isDeleted { get; set; }
         public DateTime TimeStamp { get; set; }
-        public string UserId { get; set; }
+      
 
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
-
-        public ProposalTemplate()
+        public CustomApplicationDetails()
         {
             TimeStamp = DateTime.Now;
         }
 
-        public ICollection<CustomApplicationDetails> CustomApplicationDetails { get; set; }
-        public ICollection<Programme> Programme { get; set; }
-
+       
     }
 }

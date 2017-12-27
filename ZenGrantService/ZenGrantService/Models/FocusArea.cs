@@ -11,20 +11,20 @@ namespace ZenGrantService.Models
 
     public class FocusArea
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         
         public string FocusAreaName { get; set; }
         public string FocusAreaDesc { get; set; }
 
         public int OrganizationID { get; set; }
-
         public virtual Organization Organization { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool isActive { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        [Key]
+        
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]

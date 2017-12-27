@@ -7,17 +7,13 @@ using System.Web;
 
 namespace ZenGrantService.Models
 {
-    public enum subType
-    {
-        Basic,
-        Standard,
-        Enterprise
-    }
+    
     public class Subscription
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public subType? subType { get; set; }
+        public enumManager.subType subType { get; set; }
         public int OrganizationID { get; set; }
 
         public virtual Organization Organization { get; set; }
@@ -28,7 +24,6 @@ namespace ZenGrantService.Models
         public bool isActive { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        [Key]
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
@@ -38,7 +33,6 @@ namespace ZenGrantService.Models
         {
             TimeStamp = DateTime.Now;
         }
-
         public ICollection<Renewal> Renewal { get; set; }
     }
 }

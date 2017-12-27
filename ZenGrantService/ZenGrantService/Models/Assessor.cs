@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
 namespace ZenGrantService.Models
 {
-   
-    public class ProposalTemplate
+    public class Assessor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public string FieldLabel { get; set; }
-        public enumManager.FieldType FieldType { get; set; }
-        public string FieldValue { get; set; }
+        public string AssessorCode { get; set; }
+        public string AssessorName { get; set; }
+        public string AssessorEmail { get; set; }
+        public string AssessorPassword { get; set; }
         public int OrganizationID { get; set; }
         public virtual Organization Organization { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool isDeleted { get; set; }
         public DateTime TimeStamp { get; set; }
+        
         public string UserId { get; set; }
-
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
-        public ProposalTemplate()
+        public Assessor()
         {
             TimeStamp = DateTime.Now;
         }
 
-        public ICollection<CustomApplicationDetails> CustomApplicationDetails { get; set; }
-        public ICollection<Programme> Programme { get; set; }
-
+        public ICollection<ProgApplication> ProgApplication { get; set; }
+        public ICollection<SelectionAnswer> SelectionAnswer { get; set; }
     }
 }

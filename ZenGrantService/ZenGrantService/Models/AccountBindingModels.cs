@@ -48,6 +48,20 @@ namespace ZenGrantService.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First name")]
+        public string firstname { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        public string lastname { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
     }
 
     public class RegisterExternalBindingModel

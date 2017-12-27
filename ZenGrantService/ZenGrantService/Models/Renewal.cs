@@ -7,16 +7,12 @@ using System.Web;
 
 namespace ZenGrantService.Models
 {
-    public enum PaymentMethod
-    {
-        PhysicalInvoice,
-        OnlinePayment,
-        BankTransfer
-    }
+   
 
     public class Renewal
     {
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         
         public int OrganizationID { get; set; }
@@ -31,7 +27,7 @@ namespace ZenGrantService.Models
 
         public string PaymentReference { get; set; }
         public int Status { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
+        public enumManager.PaymentMethod PaymentMethod { get; set; }
         public string Narration { get; set; }
 
         public DateTime PostingDate { get; set; }
@@ -41,7 +37,6 @@ namespace ZenGrantService.Models
         public bool isActive { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        [Key]
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]

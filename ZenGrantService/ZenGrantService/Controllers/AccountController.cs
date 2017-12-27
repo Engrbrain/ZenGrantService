@@ -16,12 +16,14 @@ using Microsoft.Owin.Security.OAuth;
 using ZenGrantService.Models;
 using ZenGrantService.Providers;
 using ZenGrantService.Results;
+using System.Linq;
+using System.Web.Http.Description;
 
 namespace ZenGrantService.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
@@ -61,10 +63,107 @@ namespace ZenGrantService.Controllers
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
+                Userid = User.Identity.GetUserId(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
+
+        #region IMPLEMENT CUSTOM USER ENDPOINTS
+        [Authorize(Roles = "Admin")]
+        [Route("users")]
+        public List<ApplicationUser> GetUsers()
+        {
+            ApplicationDbContext UsersContext = new ApplicationDbContext();
+            List<ApplicationUser> users = UsersContext.Users.ToList();
+            return users;
+        }
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id:guid}", Name = "GetUserById")]
+        public  async Task<completeUserInformation> GetUser(string Id)
+        {
+            ApplicationUser user =  await UserManager.FindByIdAsync(Id);
+
+            if (user != null)
+            {
+                return new completeUserInformation {
+                    firstname = user.firstname,
+                    lastname = user.lastname,
+                    PhoneNumber = user.PhoneNumber,
+                    Address  = user.Address,
+                    City = user.City,
+                    State = user.State,
+                    Nationality = user.Nationality,
+                    Gender = user.Gender,
+                    UserSummary = user.UserSummary,
+                    JobDesignation  = user.JobDesignation,
+                    UserImage = user.UserImage,
+                    scope  = user.scope,
+                    CreatedDate = user.CreatedDate
+
+                 };
+            }
+
+            return null;
+
+        }
+        [Authorize(Roles = "Admin")]
+        [Route("user/{username}")]
+        public async Task<completeUserInformation> GetUserByName(string username)
+        {
+            ApplicationUser user = await UserManager.FindByEmailAsync(username);
+
+            if (user != null)
+            {
+                return new completeUserInformation
+                {
+                    firstname = user.firstname,
+                    lastname = user.lastname,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address,
+                    City = user.City,
+                    State = user.State,
+                    Nationality = user.Nationality,
+                    Gender = user.Gender,
+                    UserSummary = user.UserSummary,
+                    JobDesignation = user.JobDesignation,
+                    UserImage = user.UserImage,
+                    scope = user.scope,
+                    CreatedDate = user.CreatedDate
+
+                };
+            }
+
+            return null;
+
+        }
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id:guid}")]
+        public async Task<IHttpActionResult> DeleteUser(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            var logins = user.Logins;
+            var rolesForUser = await UserManager.GetRolesAsync(id);
+            
+                foreach (var login in logins.ToList())
+                {
+                    await _userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        // item should be the name of the role
+                        var result = await _userManager.RemoveFromRoleAsync(user.Id, item);
+                    }
+                }
+
+                await _userManager.DeleteAsync(user);
+            return Ok();
+        }
+
+        #endregion
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -328,7 +427,18 @@ namespace ZenGrantService.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() {
+                UserName = model.Email,
+                Email = model.Email,
+                firstname = model.firstname,
+                lastname = model.lastname,
+                PhoneNumber = model.PhoneNumber,
+                CreatedDate = DateTime.Now,
+                TimeStamp = DateTime.Now,
+                
+
+
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -391,7 +501,7 @@ namespace ZenGrantService.Controllers
             get { return Request.GetOwinContext().Authentication; }
         }
 
-        private IHttpActionResult GetErrorResult(IdentityResult result)
+        private new IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
             {
@@ -490,5 +600,51 @@ namespace ZenGrantService.Controllers
         }
 
         #endregion
+
+        #region MANAGE USER ROLES
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id:guid}/roles")]
+        [HttpPut]
+        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        {
+
+            var appUser = await this.AppUserManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            var currentRoles = await this.AppUserManager.GetRolesAsync(appUser.Id);
+
+            var rolesNotExists = rolesToAssign.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
+
+            if (rolesNotExists.Count() > 0)
+            {
+
+                ModelState.AddModelError("", string.Format("Roles '{0}' does not exixts in the system", string.Join(",", rolesNotExists)));
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult removeResult = await this.AppUserManager.RemoveFromRolesAsync(appUser.Id, currentRoles.ToArray());
+
+            if (!removeResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Failed to remove user roles");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult addResult = await this.AppUserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
+
+            if (!addResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Failed to add user roles");
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
+        }
+
+#endregion
     }
 }

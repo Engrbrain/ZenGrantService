@@ -7,13 +7,13 @@ namespace ZenGrantService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UserFields : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserFields));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712201926262_UserFields"; }
+            get { return "201712262010218_initial"; }
         }
         
         string IMigrationMetadata.Source
