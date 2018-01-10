@@ -45,4 +45,12 @@ namespace ZenGrantService.Models
         public ICollection<SelectionAnswer> SelectionAnswer { get; set; }
         public ICollection<Project> Project { get; set; }
     }
+
+    public class ProgApplicationSelectModel
+    {
+        public int ID { get; set; }
+        public string ApplicantName { get; set; }
+        public string ApplicantReference { get; set; }
+
+    }
 }

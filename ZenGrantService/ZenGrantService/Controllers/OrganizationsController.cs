@@ -20,7 +20,26 @@ namespace ZenGrantService.Controllers
         // GET: api/Organizations
         public IQueryable<Organization> GetOrganizations()
         {
-            return db.Organizations;
+
+            return db.Organizations.Include(a => a.User);
+           
+        }
+
+        [Route("GetOrgSelectList")]
+        public List <OrganizationSelectModel> GetOrgSelectList()
+        {
+            List<OrganizationSelectModel> orglist = new List<OrganizationSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _orglist = (from O in db.Organizations
+                                select new OrganizationSelectModel
+                                {
+                                    ID = O.ID,
+                                    OrgName = O.OrgName
+                                });
+                orglist = _orglist.ToList();
+            }
+                return orglist;
         }
 
         // GET: api/Organizations/5

@@ -36,6 +36,23 @@ namespace ZenGrantService.Controllers
             return Ok(proposalTemplate);
         }
 
+        [Route("GetProposalTemplateSelectList")]
+        public List<ProposalTemplateSelectModel> GetProposalTemplateSelectList()
+        {
+            List<ProposalTemplateSelectModel> propTemplist = new List<ProposalTemplateSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _propTemplist = (from O in db.ProposalTemplates
+                                select new ProposalTemplateSelectModel
+                                {
+                                    ID = O.ID,
+                                    FieldLabel = O.FieldLabel
+                                });
+                propTemplist = _propTemplist.ToList();
+            }
+            return propTemplist;
+        }
+
         // PUT: api/ProposalTemplates/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProposalTemplate(int id, ProposalTemplate proposalTemplate)

@@ -18,9 +18,10 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ActivityRisks
-        public IQueryable<ActivityRisk> GetActivityRisks()
+        public List<ActivityRisk> GetActivityRisks()
         {
-            return db.ActivityRisks;
+            var activityRisks = db.ActivityRisks.Include(a => a.Organization).Include(a => a.ProjectActivity);
+            return activityRisks.ToList();
         }
 
         // GET: api/ActivityRisks/5

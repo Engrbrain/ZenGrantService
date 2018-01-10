@@ -18,9 +18,10 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/CustomApplicationDetails
-        public IQueryable<CustomApplicationDetails> GetCustomApplicationDetails()
+        public List<CustomApplicationDetails> GetCustomApplicationDetails()
         {
-            return db.CustomApplicationDetails;
+            var customApplicationDetails = db.CustomApplicationDetails.Include(c => c.Organization).Include(c => c.ProgApplication).Include(c => c.Programme).Include(c => c.ProposalTemplate);
+            return customApplicationDetails.ToList();
         }
 
         // GET: api/CustomApplicationDetails/5

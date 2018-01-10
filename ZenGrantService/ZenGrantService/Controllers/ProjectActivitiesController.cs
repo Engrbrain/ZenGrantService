@@ -23,6 +23,24 @@ namespace ZenGrantService.Controllers
             return db.ProjectActivity;
         }
 
+        [Route("GetProActSelectList")]
+        public List<ProjectActivitySelectModel> GetProActSelectList()
+        {
+            List<ProjectActivitySelectModel> proAct = new List<ProjectActivitySelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _proAct = (from P in db.ProjectActivity
+                               select new ProjectActivitySelectModel
+                               {
+                                    ID = P.ID,
+                                   ActivityTitle = P.ActivityTitle
+                                });
+                proAct = _proAct.ToList();
+
+            }
+            return proAct;
+        }
+
         // GET: api/ProjectActivities/5
         [ResponseType(typeof(ProjectActivity))]
         public async Task<IHttpActionResult> GetProjectActivity(int id)

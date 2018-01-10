@@ -36,6 +36,23 @@ namespace ZenGrantService.Controllers
             return Ok(progApplication);
         }
 
+        [Route("GetProgApplicationSelectList")]
+        public List<ProgApplicationSelectModel> GetProgApplicationSelectList()
+        {
+            List<ProgApplicationSelectModel> progApplist = new List<ProgApplicationSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _progApplist = (from P in db.ProgApplication
+                                select new ProgApplicationSelectModel
+                                {
+                                    ID = P.ID,
+                                    ApplicantName = P.ApplicantName,
+                                    ApplicantReference = P.ApplicantReference
+                                });
+                progApplist = _progApplist.ToList();
+            }
+            return progApplist;
+        }
         // PUT: api/ProgApplications/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProgApplication(int id, ProgApplication progApplication)

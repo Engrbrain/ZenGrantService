@@ -50,4 +50,11 @@ namespace ZenGrantService.Models
         public ICollection<ActivityRisk> ActivityRisk { get; set; }
 
     }
+
+    public class ProjectActivitySelectModel
+    {
+        public int ID { get; set; }
+        public string ActivityTitle { get; set; }
+
+    }
 }

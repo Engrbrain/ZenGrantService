@@ -45,4 +45,11 @@ namespace ZenGrantService.Models
         public ICollection<Project> Project { get; set; }
         public ICollection<SelectionCategory> SelectionCategory { get; set; }
     }
+
+    public class ProgrammeSelectModel
+    {
+        public int ID { get; set; }
+        public string ProgrammeName { get; set; }
+
+    }
 }

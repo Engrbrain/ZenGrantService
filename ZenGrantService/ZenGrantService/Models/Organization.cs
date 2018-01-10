@@ -23,9 +23,8 @@ namespace ZenGrantService.Models
         public bool isDeleted { get; set; }
         public DateTime TimeStamp { get; set; }
         public byte[] OrgLogo { get; set; }
+        public string ImageType { get; set; }
 
-
-        
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
@@ -66,5 +65,12 @@ namespace ZenGrantService.Models
         public ICollection<SelectionQuestion> SelectionQuestion { get; set; }
 
 
+    }
+
+    public class OrganizationSelectModel
+    {
+        public int ID { get; set; }
+        public string OrgName { get; set; }
+      
     }
 }

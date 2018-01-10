@@ -35,4 +35,10 @@ namespace ZenGrantService.Models
         public ICollection<Programme> Programme { get; set; }
 
     }
+    public class ProposalTemplateSelectModel
+    {
+        public int ID { get; set; }
+        public string FieldLabel { get; set; }
+
+    }
 }

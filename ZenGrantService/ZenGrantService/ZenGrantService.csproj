@@ -273,11 +273,28 @@
     <Compile Include="Migrations\201712262010218_initial.Designer.cs">
       <DependentUpon>201712262010218_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801051956497_ImageType.cs" />
+    <Compile Include="Migrations\201801051956497_ImageType.Designer.cs">
+      <DependentUpon>201801051956497_ImageType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061457520_ActivityDocumentUpdate.cs" />
+    <Compile Include="Migrations\201801061457520_ActivityDocumentUpdate.Designer.cs">
+      <DependentUpon>201801061457520_ActivityDocumentUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801081235187_activitydocumentmodified.cs" />
+    <Compile Include="Migrations\201801081235187_activitydocumentmodified.Designer.cs">
+      <DependentUpon>201801081235187_activitydocumentmodified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801081438507_applicationdocumentmodified.cs" />
+    <Compile Include="Migrations\201801081438507_applicationdocumentmodified.Designer.cs">
+      <DependentUpon>201801081438507_applicationdocumentmodified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="App_Start\ApplicationRoleManager.cs" />
     <Compile Include="Models\enumManager.cs" />
+    <Compile Include="Models\FileUploadResult.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\ProjectTransactionLine.cs" />
     <Compile Include="Models\ProjectTransactionHeader.cs" />
@@ -374,6 +391,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DAL\" />
+    <Folder Include="Uploads\ActivityDocument\" />
     <Folder Include="Views\BaseApi\" />
     <Folder Include="Views\Roles\" />
   </ItemGroup>
@@ -398,6 +416,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712262010218_initial.resx">
       <DependentUpon>201712262010218_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051956497_ImageType.resx">
+      <DependentUpon>201801051956497_ImageType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061457520_ActivityDocumentUpdate.resx">
+      <DependentUpon>201801061457520_ActivityDocumentUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801081235187_activitydocumentmodified.resx">
+      <DependentUpon>201801081235187_activitydocumentmodified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801081438507_applicationdocumentmodified.resx">
+      <DependentUpon>201801081438507_applicationdocumentmodified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

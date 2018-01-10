@@ -18,9 +18,11 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ActivityDocuments
-        public IQueryable<ActivityDocument> GetActivityDocuments()
+        public List<ActivityDocument> GetActivityDocuments()
         {
-            return db.ActivityDocuments;
+            //return db.ActivityDocuments;
+            var activityDocuments = db.ActivityDocuments.Include(a => a.Organization).Include(a => a.ProjectActivity);
+            return activityDocuments.ToList();
         }
 
         // GET: api/ActivityDocuments/5
