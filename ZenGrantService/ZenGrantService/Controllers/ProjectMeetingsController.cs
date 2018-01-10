@@ -36,6 +36,23 @@ namespace ZenGrantService.Controllers
             return Ok(projectMeeting);
         }
 
+        [Route("GetProjectMeetingSelectList")]
+        public List<ProjectMeetingSelectModel> GetProjectMeetingSelectList()
+        {
+            List<ProjectMeetingSelectModel> proMeetlist = new List<ProjectMeetingSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _proMeetlist = (from PM in db.ProjectMeetings
+                                    select new ProjectMeetingSelectModel
+                                    {
+                                        ID = PM.ID,
+                                        MeetingTitle = PM.MeetingTitle
+                                    });
+                proMeetlist = _proMeetlist.ToList();
+            }
+            return proMeetlist;
+        }
+
         // PUT: api/ProjectMeetings/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProjectMeeting(int id, ProjectMeeting projectMeeting)

@@ -36,6 +36,22 @@ namespace ZenGrantService.Controllers
             return Ok(project);
         }
 
+        [Route("GetProjectSelectList")]
+        public List<ProjectSelectModel> GetProjectSelectList()
+        {
+            List<ProjectSelectModel> projectlist = new List<ProjectSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _projectlist = (from P in db.Project
+                                select new ProjectSelectModel
+                                {
+                                    ID = P.ID,
+                                    ProjectName = P.ProjectName
+                                });
+                projectlist = _projectlist.ToList();
+            }
+            return projectlist;
+        }
         // PUT: api/Projects/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProject(int id, Project project)

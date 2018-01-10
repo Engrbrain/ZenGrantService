@@ -41,4 +41,10 @@ namespace ZenGrantService.Models
         public ICollection<MeetingAttendance> MeetingAttendance { get; set; }
         public ICollection<ProjectActivity> ProjectActivity { get; set; }
     }
+    public class ProjectMeetingSelectModel
+    {
+        public int ID { get; set; }
+        public string MeetingTitle { get; set; }
+
+    }
 }

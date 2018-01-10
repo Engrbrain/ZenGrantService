@@ -18,9 +18,10 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/FocusAreas
-        public IQueryable<FocusArea> GetFocusAreas()
+        public List<FocusArea> GetFocusAreas()
         {
-            return db.FocusAreas;
+            var focusAreas = db.FocusAreas.Include(f => f.Organization);
+            return focusAreas.ToList();
         }
 
         // GET: api/FocusAreas/5

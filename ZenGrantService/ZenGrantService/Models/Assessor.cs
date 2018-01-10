@@ -34,4 +34,11 @@ namespace ZenGrantService.Models
         public ICollection<ProgApplication> ProgApplication { get; set; }
         public ICollection<SelectionAnswer> SelectionAnswer { get; set; }
     }
+
+    public class AssessorSelectModel
+    {
+        public int ID { get; set; }
+        public string AssessorName { get; set; }
+
+    }
 }

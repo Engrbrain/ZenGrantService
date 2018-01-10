@@ -36,6 +36,22 @@ namespace ZenGrantService.Controllers
 
             return Ok(assessor);
         }
+        [Route("GetAssessorSelectList")]
+        public List<AssessorSelectModel> GetAssessorSelectList()
+        {
+            List<AssessorSelectModel> assessorlist = new List<AssessorSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _assessorlist = (from A in db.Assessors
+                                    select new AssessorSelectModel
+                                    {
+                                        ID = A.ID,
+                                        AssessorName = A.AssessorName
+                                    });
+                assessorlist = _assessorlist.ToList();
+            }
+            return assessorlist;
+        }
 
         // PUT: api/Assessors/5
         [ResponseType(typeof(void))]
