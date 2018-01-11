@@ -18,10 +18,10 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/BudgetTemplates
-        public List<BudgetTemplate> GetBudgetTemplate()
+        public IQueryable<BudgetTemplate> GetBudgetTemplate()
         {
-            var budgetTemplates = db.BudgetTemplate.Include(b => b.Organization);
-            return budgetTemplates.ToList();
+            return db.BudgetTemplate.Include(b => b.Organization);
+            
         }
 
         // GET: api/BudgetTemplates/5

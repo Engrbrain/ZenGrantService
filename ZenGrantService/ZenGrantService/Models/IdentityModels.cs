@@ -62,7 +62,6 @@ namespace ZenGrantService.Models
         public DbSet<ZenGrantService.Models.ApplicationDocument> ApplicationDocument { get; set; }
         public DbSet<ZenGrantService.Models.Assessor> Assessors { get; set; }
         public DbSet<ZenGrantService.Models.BudgetTemplate> BudgetTemplate { get; set; }
-        public DbSet<ZenGrantService.Models.CustomApplicationDetails> CustomApplicationDetails { get; set; }
         public DbSet<ZenGrantService.Models.FocusArea> FocusAreas { get; set; }
         public DbSet<ZenGrantService.Models.MeetingAttendance> MeetingAttendances { get; set; }
         public DbSet<ZenGrantService.Models.ProgApplication> ProgApplication { get; set; }
@@ -79,7 +78,6 @@ namespace ZenGrantService.Models
         public DbSet<ZenGrantService.Models.ProjectTemplate> ProjectTemplates { get; set; }
         public DbSet<ZenGrantService.Models.ProjectTransactionHeader> ProjectTransactionHeader { get; set; }
         public DbSet<ZenGrantService.Models.ProjectTransactionLine> ProjectTransactionLine { get; set; }
-        public DbSet<ZenGrantService.Models.ProposalTemplate> ProposalTemplates { get; set; }
         public DbSet<ZenGrantService.Models.Renewal> Renewals { get; set; }
         public DbSet<ZenGrantService.Models.SelectionAnswer> SelectionAnswer { get; set; }
         public DbSet<ZenGrantService.Models.SelectionCategory> SelectionCategory { get; set; }
@@ -125,12 +123,7 @@ namespace ZenGrantService.Models
                 .HasForeignKey(d => d.OrganizationID) 
                 .WillCascadeOnDelete(false);
 
-         modelBuilder.Entity<CustomApplicationDetails>()
-               .HasRequired(d => d.Organization)
-               .WithMany(w => w.CustomApplicationDetails)
-               .HasForeignKey(d => d.OrganizationID)
-               .WillCascadeOnDelete(false);
-
+        
          modelBuilder.Entity<MeetingAttendance>()
               .HasRequired(d => d.Organization)
               .WithMany(w => w.MeetingAttendance)
@@ -252,17 +245,7 @@ namespace ZenGrantService.Models
      .HasForeignKey(d => d.ProgrammeID)
      .WillCascadeOnDelete(false);
 
-  modelBuilder.Entity<CustomApplicationDetails>()
-     .HasRequired(d => d.ProposalTemplate)
-     .WithMany(w => w.CustomApplicationDetails)
-     .HasForeignKey(d => d.ProposalTemplateID)
-     .WillCascadeOnDelete(false);
-
-  modelBuilder.Entity<ProposalTemplate>()
-     .HasRequired(d => d.Organization)
-     .WithMany(w => w.ProposalTemplate)
-     .HasForeignKey(d => d.OrganizationID)
-     .WillCascadeOnDelete(false);
+  
   
  modelBuilder.Entity<Subscription>()
      .HasRequired(d => d.Organization)

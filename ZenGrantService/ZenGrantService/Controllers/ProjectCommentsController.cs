@@ -20,7 +20,8 @@ namespace ZenGrantService.Controllers
         // GET: api/ProjectComments
         public IQueryable<ProjectComment> GetProjectComments()
         {
-            return db.ProjectComments;
+           return db.ProjectComments.Include(p => p.Organization).Include(p => p.Project);
+            
         }
 
         // GET: api/ProjectComments/5

@@ -38,10 +38,8 @@ namespace ZenGrantService.Models
         public ICollection<Subscription> Subscription { get; set; }
         public ICollection<Renewal> Renewal { get; set; }
         public ICollection<FocusArea> FocusArea { get; set; }
-        public ICollection<ProposalTemplate> ProposalTemplate { get; set; }
         public ICollection<Programme> Programme { get; set; }
         public ICollection<ProgApplication> ProgApplication { get; set; }
-        public ICollection<CustomApplicationDetails> CustomApplicationDetails { get; set; }
         public ICollection<ApplicationDocument> ApplicationDocument { get; set; }
         public ICollection<Assessor> Assessor { get; set; }
         public ICollection<SelectionCategory> SelectionCategory { get; set; }

@@ -20,7 +20,8 @@ namespace ZenGrantService.Controllers
         // GET: api/ProjectMeetings
         public IQueryable<ProjectMeeting> GetProjectMeetings()
         {
-            return db.ProjectMeetings;
+            return  db.ProjectMeetings.Include(p => p.Organization).Include(p => p.Project).Include(u=>u.User);
+         
         }
 
         // GET: api/ProjectMeetings/5

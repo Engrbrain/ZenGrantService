@@ -20,7 +20,7 @@ namespace ZenGrantService.Controllers
         // GET: api/ProjectBudgets
         public IQueryable<ProjectBudget> GetProjectBudget()
         {
-            return db.ProjectBudget;
+            return  db.ProjectBudget.Include(p => p.Organization).Include(p => p.Project);
         }
 
         // GET: api/ProjectBudgets/5

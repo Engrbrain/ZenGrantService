@@ -239,7 +239,6 @@
     <Compile Include="Controllers\AssessorsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BudgetTemplatesController.cs" />
-    <Compile Include="Controllers\CustomApplicationDetailsController.cs" />
     <Compile Include="Controllers\FocusAreasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MeetingAttendancesController.cs" />
@@ -258,7 +257,6 @@
     <Compile Include="Controllers\ProjectTemplatesController.cs" />
     <Compile Include="Controllers\ProjectTransactionHeadersController.cs" />
     <Compile Include="Controllers\ProjectTransactionLinesController.cs" />
-    <Compile Include="Controllers\ProposalTemplatesController.cs" />
     <Compile Include="Controllers\RenewalsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SelectionAnswersController.cs" />
@@ -289,6 +287,10 @@
     <Compile Include="Migrations\201801081438507_applicationdocumentmodified.Designer.cs">
       <DependentUpon>201801081438507_applicationdocumentmodified.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801111418593_ModelChangeFileSystem.cs" />
+    <Compile Include="Migrations\201801111418593_ModelChangeFileSystem.Designer.cs">
+      <DependentUpon>201801111418593_ModelChangeFileSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -312,7 +314,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\FocusArea.cs" />
     <Compile Include="Models\ApplicationDocument.cs" />
-    <Compile Include="Models\CustomApplicationDetails.cs" />
     <Compile Include="Models\ProgApplication.cs" />
     <Compile Include="Models\Assessor.cs" />
     <Compile Include="Models\ProjectActivity.cs" />
@@ -323,7 +324,6 @@
     <Compile Include="Models\SelectionAnswer.cs" />
     <Compile Include="Models\SelectionQuestion.cs" />
     <Compile Include="Models\Programme.cs" />
-    <Compile Include="Models\ProposalTemplate.cs" />
     <Compile Include="Models\Renewal.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\Organization.cs" />
@@ -428,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801081438507_applicationdocumentmodified.resx">
       <DependentUpon>201801081438507_applicationdocumentmodified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801111418593_ModelChangeFileSystem.resx">
+      <DependentUpon>201801111418593_ModelChangeFileSystem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

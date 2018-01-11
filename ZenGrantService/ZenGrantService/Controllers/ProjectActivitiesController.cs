@@ -20,7 +20,8 @@ namespace ZenGrantService.Controllers
         // GET: api/ProjectActivities
         public IQueryable<ProjectActivity> GetProjectActivity()
         {
-            return db.ProjectActivity;
+           return db.ProjectActivity.Include(p => p.Dependency).Include(p => p.Organization).Include(p => p.Project).Include(p => p.ProjectMeeting).Include(p => p.ProjectTeam);
+           
         }
 
         [Route("GetProActSelectList")]

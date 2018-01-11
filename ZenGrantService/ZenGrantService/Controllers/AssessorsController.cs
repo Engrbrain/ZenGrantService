@@ -18,10 +18,10 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Assessors
-        public List<Assessor> GetAssessors()
+        public IQueryable<Assessor> GetAssessors()
         {
-            var assessors = db.Assessors.Include(a => a.Organization).Include(a => a.User);
-            return assessors.ToList();
+            return db.Assessors.Include(a => a.Organization).Include(a => a.User);
+           
         }
 
         // GET: api/Assessors/5

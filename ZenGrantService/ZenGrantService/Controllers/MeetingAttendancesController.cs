@@ -18,10 +18,10 @@ namespace ZenGrantService.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/MeetingAttendances
-        public List<MeetingAttendance> GetMeetingAttendances()
+        public IQueryable<MeetingAttendance> GetMeetingAttendances()
         {
-            var meetingAttendances = db.MeetingAttendances.Include(m => m.Organization).Include(m => m.Project).Include(m => m.ProjectMeeting);
-            return meetingAttendances.ToList();
+            return db.MeetingAttendances.Include(m => m.Organization).Include(m => m.Project).Include(m => m.ProjectMeeting).Include(a => a.User);
+            
         }
 
         // GET: api/MeetingAttendances/5

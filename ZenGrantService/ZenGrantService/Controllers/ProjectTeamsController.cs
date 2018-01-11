@@ -36,6 +36,23 @@ namespace ZenGrantService.Controllers
             return Ok(projectTeam);
         }
 
+        [Route("GetProjectTeamSelectList")]
+        public List<ProjectTeamSelectModel> GetProjectTeamSelectList()
+        {
+            List<ProjectTeamSelectModel> projectTeamlist = new List<ProjectTeamSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _projectTeamlist = (from PT in db.ProjectTeams
+                                select new ProjectTeamSelectModel
+                                {
+                                    ID = PT.ID,
+                                    Fullname = PT.Fullname
+                                });
+                projectTeamlist = _projectTeamlist.ToList();
+            }
+            return projectTeamlist;
+        }
+
         // PUT: api/ProjectTeams/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProjectTeam(int id, ProjectTeam projectTeam)
