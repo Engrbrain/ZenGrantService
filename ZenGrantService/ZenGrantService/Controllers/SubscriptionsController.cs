@@ -20,7 +20,7 @@ namespace ZenGrantService.Controllers
         // GET: api/Subscriptions
         public IQueryable<Subscription> GetSubscriptions()
         {
-            return db.Subscriptions;
+            return db.Subscriptions.Include(s => s.Organization);
         }
 
         // GET: api/Subscriptions/5
@@ -36,6 +36,22 @@ namespace ZenGrantService.Controllers
             return Ok(subscription);
         }
 
+        [Route("GetOrgSelectList")]
+        public List<SubscriptionSelectModel> GetSubscriptionSelectList()
+        {
+            List<SubscriptionSelectModel> subscriptionlist = new List<SubscriptionSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _subscriptionlist = (from S in db.Subscriptions
+                                select new SubscriptionSelectModel
+                                {
+                                    ID = S.ID,
+                                    SubscriptionDescription = S.SubscriptionDescription
+                                });
+                subscriptionlist = _subscriptionlist.ToList();
+            }
+            return subscriptionlist;
+        }
         // PUT: api/Subscriptions/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutSubscription(int id, Subscription subscription)

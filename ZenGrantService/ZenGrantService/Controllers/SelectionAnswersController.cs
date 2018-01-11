@@ -20,7 +20,8 @@ namespace ZenGrantService.Controllers
         // GET: api/SelectionAnswers
         public IQueryable<SelectionAnswer> GetSelectionAnswer()
         {
-            return db.SelectionAnswer;
+
+            return db.SelectionAnswer.Include(s => s.Assessor).Include(s => s.Organization).Include(s => s.ProgApplication).Include(s => s.SelectionQuestion);
         }
 
         // GET: api/SelectionAnswers/5

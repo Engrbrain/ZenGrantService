@@ -36,6 +36,23 @@ namespace ZenGrantService.Controllers
             return Ok(projectBudget);
         }
 
+        [Route("GetProjectBudgetSelectList")]
+        public List<ProjectBudgetSelectModel> GetProjectBudgetSelectList()
+        {
+            List<ProjectBudgetSelectModel> projectBudgetlist = new List<ProjectBudgetSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _projectBudgetlist = (from PB in db.ProjectBudget
+                                select new ProjectBudgetSelectModel
+                                {
+                                    ID = PB.ID,
+                                    BudgetItem = PB.BudgetItem
+                                });
+                projectBudgetlist = _projectBudgetlist.ToList();
+            }
+            return projectBudgetlist;
+        }
+
         // PUT: api/ProjectBudgets/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProjectBudget(int id, ProjectBudget projectBudget)

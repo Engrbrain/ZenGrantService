@@ -34,4 +34,11 @@ namespace ZenGrantService.Models
 
         public ICollection<ProjectTransactionHeader> ProjectTransactionHeader { get; set; }
     }
+
+    public class ProjectBudgetSelectModel
+    {
+        public int ID { get; set; }
+        public string BudgetItem { get; set; }
+
+    }
 }

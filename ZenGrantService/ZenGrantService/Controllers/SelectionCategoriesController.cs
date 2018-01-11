@@ -20,7 +20,7 @@ namespace ZenGrantService.Controllers
         // GET: api/SelectionCategories
         public IQueryable<SelectionCategory> GetSelectionCategory()
         {
-            return db.SelectionCategory;
+            return db.SelectionCategory.Include(s => s.Organization);
         }
 
         // GET: api/SelectionCategories/5
@@ -34,6 +34,23 @@ namespace ZenGrantService.Controllers
             }
 
             return Ok(selectionCategory);
+        }
+
+        [Route("GetSelectionCategorySelectList")]
+        public List<SelectionCategorySelectModel> GetSelectionCategorySelectList()
+        {
+            List<SelectionCategorySelectModel> selectionCategorylist = new List<SelectionCategorySelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _selectionCategorylist = (from SC in db.SelectionCategory
+                                select new SelectionCategorySelectModel
+                                {
+                                    ID = SC.ID,
+                                    CategoryName = SC.CategoryName
+                                });
+                selectionCategorylist = _selectionCategorylist.ToList();
+            }
+            return selectionCategorylist;
         }
 
         // PUT: api/SelectionCategories/5

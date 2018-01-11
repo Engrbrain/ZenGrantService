@@ -20,7 +20,7 @@ namespace ZenGrantService.Controllers
         // GET: api/Renewals
         public IQueryable<Renewal> GetRenewals()
         {
-            return db.Renewals;
+            return db.Renewals.Include(r => r.Organization).Include(r => r.Subscription).Include(u => u.User);
         }
 
         // GET: api/Renewals/5

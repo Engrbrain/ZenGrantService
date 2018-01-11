@@ -20,7 +20,8 @@ namespace ZenGrantService.Controllers
         // GET: api/ProjectTransactionHeaders
         public IQueryable<ProjectTransactionHeader> GetProjectTransactionHeaders()
         {
-            return db.ProjectTransactionHeader;
+            return db.ProjectTransactionHeader.Include(p => p.Organization).Include(p => p.Project).Include(p => p.ProjectBudget).Include(u => u.User);
+          
         }
 
         // GET: api/ProjectTransactionHeaders/5

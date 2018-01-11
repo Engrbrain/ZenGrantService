@@ -33,4 +33,10 @@ namespace ZenGrantService.Models
         public virtual ICollection<SelectionQuestion> SelectionQuestion { get; set; }
         public virtual ICollection<Programme> Programme { get; set; }
     }
+    public class SelectionCategorySelectModel
+    {
+        public int ID { get; set; }
+        public string CategoryName { get; set; }
+
+    }
 }

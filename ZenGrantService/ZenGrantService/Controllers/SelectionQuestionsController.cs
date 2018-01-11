@@ -20,7 +20,7 @@ namespace ZenGrantService.Controllers
         // GET: api/SelectionQuestions
         public IQueryable<SelectionQuestion> GetSelectionQuestions()
         {
-            return db.SelectionQuestions;
+            return db.SelectionQuestions.Include(s => s.Organization);
         }
 
         // GET: api/SelectionQuestions/5
@@ -34,6 +34,23 @@ namespace ZenGrantService.Controllers
             }
 
             return Ok(selectionQuestion);
+        }
+
+        [Route("GetSelectionQuestionSelectList")]
+        public List<SelectionQuestionSelectModel> GetSelectionQuestionSelectList()
+        {
+            List<SelectionQuestionSelectModel> selectionQuestionlist = new List<SelectionQuestionSelectModel>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var _selectionQuestionlist = (from SQ in db.SelectionQuestions
+                                select new SelectionQuestionSelectModel
+                                {
+                                    ID = SQ.ID,
+                                    Question = SQ.Question
+                                });
+                selectionQuestionlist = _selectionQuestionlist.ToList();
+            }
+            return selectionQuestionlist;
         }
 
         // PUT: api/SelectionQuestions/5

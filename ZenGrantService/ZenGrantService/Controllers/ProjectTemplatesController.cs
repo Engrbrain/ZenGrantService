@@ -20,7 +20,8 @@ namespace ZenGrantService.Controllers
         // GET: api/ProjectTemplates
         public IQueryable<ProjectTemplate> GetProjectTemplates()
         {
-            return db.ProjectTemplates;
+            return db.ProjectTemplates.Include(p => p.Organization);
+            
         }
 
         // GET: api/ProjectTemplates/5

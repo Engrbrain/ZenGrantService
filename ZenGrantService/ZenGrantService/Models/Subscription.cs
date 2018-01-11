@@ -14,6 +14,8 @@ namespace ZenGrantService.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public enumManager.subType subType { get; set; }
+
+        public string SubscriptionDescription { get; set; }
         public int OrganizationID { get; set; }
 
         public virtual Organization Organization { get; set; }
@@ -34,5 +36,12 @@ namespace ZenGrantService.Models
             TimeStamp = DateTime.Now;
         }
         public ICollection<Renewal> Renewal { get; set; }
+    }
+
+    public class SubscriptionSelectModel
+    {
+        public int ID { get; set; }
+        public string SubscriptionDescription { get; set; }
+
     }
 }

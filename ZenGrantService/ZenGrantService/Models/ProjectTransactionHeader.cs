@@ -16,6 +16,8 @@ namespace ZenGrantService.Models
         public virtual ProjectBudget ProjectBudget { get; set; }
         public string TransactionRef { get; set; }
         public string ShortText { get; set; }
+        public string LocalFilePath { get; set; }
+        public string FileName { get; set; }
         public int FiscalYear { get; set; }
         public int Period { get; set; }
         public DateTime TransactionDate { get; set; }
